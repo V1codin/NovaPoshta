@@ -17,6 +17,18 @@ const store = createStore(Reducer, composeWithDevTools());
 const request = new Request();
 CitiesRef(request, store);
 
+/*
+(function () {
+  setTimeout(() => {
+    const body = document.querySelector("body");
+    const firstAdv = body.querySelector("div");
+    const secondAdv = body.querySelector(".cbalink");
+    body.removeChild(firstAdv);
+    body.removeChild(secondAdv);
+  }, 200);
+})();
+*/
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { connect } from "react-redux";
+// import { useState } from "react";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -19,11 +20,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-function numberBlock(props) {
+function NumberBlock(props) {
   const { changeNumber, inputObj } = props;
 
   const numberHandler = ({ target }) => {
-    return changeNumber(target.value);
+    changeNumber(target.value);
   };
 
   return (
@@ -44,4 +45,34 @@ function numberBlock(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(numberBlock);
+export default connect(mapStateToProps, mapDispatchToProps)(NumberBlock);
+
+/*
+function NumberBlock(props) {
+  // const {numberState, setNumberState} = props;
+  const [state, setState] = useState("");
+
+  const inputHandler = ({ target }) => {
+    setState(target.value);
+  };
+
+  return (
+    <div className={styles.number__container}>
+      <input
+        className={styles.number__input}
+        type="text"
+        name="number"
+        autoComplete="off"
+        placeholder="Номер посилки"
+        onChange={inputHandler}
+        value={state}
+      />
+      <span id="user-number__notification" className={styles.notifications}>
+        Номер посилки
+      </span>
+    </div>
+  );
+}
+
+export default NumberBlock;
+*/

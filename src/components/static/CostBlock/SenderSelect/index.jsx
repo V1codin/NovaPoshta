@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React from "react";
 import styles from "./styles.module.css";
 import { connect } from "react-redux";
-import { AppContext } from "../../../../system/Context";
+import { useState, useEffect, useMemo } from "react";
 
 const mapStateToProps = (state) => {
   return {
     serverCities: state.cities.costCities,
+    costState: state.costState,
   };
 };
 
@@ -18,16 +19,21 @@ const mapDispatchToProps = (dispatch) => {
         sendName: senderName,
       });
     },
+    setSender: (value) => {
+      dispatch({
+        type: "CAHNGE__SENDER__SELECT",
+        newState: value,
+      });
+    },
   };
 };
 
 function SenderSelect(props) {
-  const { extractData, serverCities } = props;
-  const { costState, setCostState } = useContext(AppContext);
+  const { extractData, serverCities, costState, setSender } = props;
 
   const [cities, setCities] = useState([]);
 
-  useEffect(() => {
+  const res = useMemo(() => {
     const res = serverCities.map((item) => {
       return (
         <option value={item.Ref} name={item.Ref} key={item.Ref}>
@@ -35,12 +41,16 @@ function SenderSelect(props) {
         </option>
       );
     });
-    setCities(res);
+    return res;
   }, [serverCities]);
+
+  useEffect(() => {
+    setCities(res);
+  }, [res]);
 
   const selectHandler = ({ target }) => {
     extractData(target.value, target.selectedOptions[0].text);
-    setCostState({ ...costState, selectSend: costState[target.innerHTML] });
+    setSender(target.value);
   };
 
   const selectClasses = styles.inputs + " " + styles.option__select_textCl;

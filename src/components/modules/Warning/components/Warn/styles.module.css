@@ -4,17 +4,32 @@
   color: #3c3c3c;
   border: 3px solid #797979;
   border-bottom: none;
-  width: inherit;
+  width: 115%;
   height: 35px;
   font-weight: bold;
   font-size: 18px;
   text-align: center;
-  background: linear-gradient(white, #a0a0a0);
-  background-color: #c2c2c2;
+  background: linear-gradient(#ffffff, #a0a0a0);
 }
 
-.article {
+.article__title {
   margin-top: 10px;
   padding: 0 5px;
   font-size: 20px;
+}
+
+@media (max-width: 1280px) {
+  .warning__header {
+    margin-top: 5px;
+    top: 0;
+    height: auto;
+    background: none;
+    border: none;
+  }
+  .article__title {
+    margin-top: 0;
+  }
+  .article {
+    display: none;
+  }
 }

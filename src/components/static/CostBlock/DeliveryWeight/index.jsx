@@ -22,7 +22,7 @@ function DeliveryWeight(props) {
   const { weightState, changeDeliveryWeight } = props;
 
   const inputHandler = ({ target }) => {
-    return changeDeliveryWeight(target.value);
+    changeDeliveryWeight(target.value);
   };
 
   return (

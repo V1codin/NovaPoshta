@@ -4,10 +4,16 @@ import Valid from "../../system/Valid/Validation";
 const request = new RequestFacede();
 const validObj = new Valid();
 
+const warningChecker = (warningArr, warningId) => {
+  return warningArr.indexOf(warningId);
+};
+
 export const mainAction = ({
   selectState,
   setTrackRes,
+
   initWarning,
+  warnings,
 
   setBranchLoc,
   setDeliveryCost,
@@ -22,6 +28,8 @@ export const mainAction = ({
   addBranchLoc,
   addDeliveryCost,
 }) => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   for (let key in selectState) {
     if (selectState[key] === true) {
       switch (key) {
@@ -121,7 +129,11 @@ export const mainAction = ({
           setState({ ...state, isSelect: false });
       }
     } else if (Object.values(selectState).every((item) => item === false)) {
-      return initWarning("noSelectOptions");
+      const isToggled = warningChecker(warnings, "noSelectOptions");
+      if (isToggled < 0) {
+        return initWarning("noSelectOptions");
+      }
+      return;
     }
   }
   setState({ ...state, isSelect: false });

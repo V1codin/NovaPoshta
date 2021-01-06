@@ -45,7 +45,7 @@ function Warning(props) {
           <Warn title={setts[item]} />
           <Button
             onClick={state.close}
-            className="warning__closeBtn"
+            className={"warning__closeBtn"}
             title="Зрозуміло"
           />
         </div>

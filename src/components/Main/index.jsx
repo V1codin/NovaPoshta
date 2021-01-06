@@ -1,4 +1,6 @@
-import React, { useState, useLayoutEffect } from "react";
+import React from "react";
+
+import { useState, useLayoutEffect } from "react";
 import { connect } from "react-redux";
 import { AppContext } from "../../system/Context";
 import { mainAction } from "./mainAction";
@@ -54,8 +56,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     userData: state.inputData,
-    warningObj: state.reducerWarning,
     historyObj: state.history,
+    warnings: state.warning.init,
   };
 };
 
@@ -69,6 +71,7 @@ function Main(props) {
     addBranchLoc,
     addDeliveryCost,
     clearInputData,
+    warnings,
   } = props;
 
   const [state, setState] = useState({
@@ -80,16 +83,6 @@ function Main(props) {
     tracking: false,
     branchLoc: false,
     cost: false,
-  });
-
-  const [costState, setCostState] = useState({
-    defaultSend: "Місто відправлення",
-    selectSend: "Місто відправлення",
-    refSend: "",
-
-    defaultRecipient: "Місто отримування",
-    selectRecipient: "Місто отримування",
-    refRec: "",
   });
 
   const [trackRes, setTrackRes] = useState({});
@@ -104,7 +97,9 @@ function Main(props) {
     mainAction({
       selectState,
       setTrackRes,
+
       initWarning,
+      warnings,
 
       setBranchLoc,
       setDeliveryCost,
@@ -156,16 +151,8 @@ function Main(props) {
       reciver: "",
       cost: [],
     });
-    setCostState({
-      defaultSend: "Місто відправлення",
-      selectSend: "Місто відправлення",
-      refSend: "",
-
-      defaultRecipient: "Місто отримування",
-      selectRecipient: "Місто отримування",
-      refRec: "",
-    });
   };
+
   return (
     <div className={styles.container__wrapper}>
       <AppContext.Provider
@@ -180,9 +167,6 @@ function Main(props) {
           selectState,
           setSelect,
           selectorBtn,
-
-          costState,
-          setCostState,
         }}
       >
         <InputContainer />

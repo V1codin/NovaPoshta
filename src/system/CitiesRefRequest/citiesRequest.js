@@ -1,20 +1,25 @@
 export default function (requestObject, reduxStore) {
   try {
-    const fetchData = async function () {
+    (async function () {
       const res = await requestObject.getCities();
       if (res !== undefined && res.success === true) {
-        return res;
+        reduxStore.dispatch({
+          type: "GET_CITIES",
+          serverScities: res.data,
+        });
       } else {
         throw new Error("Fetching data failed");
       }
-    };
+    })();
 
+    /*
     fetchData().then(({ data }) => {
       reduxStore.dispatch({
         type: "GET_CITIES",
         serverScities: data,
       });
     });
+    */
   } catch (e) {
     console.log(e);
   }

@@ -1,4 +1,4 @@
-import setts from "./APISetts.json";
+import setts from "./APISetts.js";
 
 /**
  * Creates HTTP request.
